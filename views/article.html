@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Website}}</title>
+</head>
+<body>
+<!-- 如果要给公共模板中传递变量，则必须加 “.” -->
+    {{template "/public/header.html" .}}
+<!-- 获取map对象数据  -->
+{{$created_at := map_get .author "created_at"}}
+    <p style="width:400px; text-align: right"> -- {{map_get .author "name"}} : {{$created_at | unixToDate}}</p>
+    <p>{{map_get .author "created_at" | unixToDate}}</p>
+    <p>我是内容部分</p>
+    <p>如果要给公共模板中传递变量，则必须加 “.”</p>
+    <p>{{.html | str2html}}</p>
+<!--  第二种方法 转义 -->
+    <p>{{str2html .html}}</p>
+<!-- html转化 不转义 -->
+    <p>{{html2str .html}}</p>
+<!-- 模板转化 -->
+    <p>转化前：{{.now}}</p>
+    <p>转化后： {{date .now "Y-m-d H:i:s"}}</p>
+
+<!--截取字符串 我是标题部分 -->
+    <p>截取前：{{.title}}</p>
+    <p>截取后：{{substr .title 2 4}}</p>
+    {{template "/public/footer.html"}}
+
+<!--加密-->
+    <p>{{.jiami}}</p>
+
+</body>
+</html>

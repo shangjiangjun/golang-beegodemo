@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h3>5. 模板遍历结构体切片</h3>
+    <ul>
+        {{range $key, $item := .articles}}
+        <li>{{$key}} ----- {{$item.Title}} : {{$item.IsHot}} </li>
+        {{end}}
+    </ul>
+</div>
+</body>
+</html>

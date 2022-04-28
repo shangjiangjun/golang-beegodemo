@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Website}}</title>
+</head>
+<body>
+
+    <h3>登录表单</h3>
+    <form action="/do-login" method="post">
+        <div>
+            <label>用户名</label>
+            <input type="text" name="username" />
+        </div>
+        <div>
+            <label>密  码</label>
+            <input type="password" name="password" maxlength="10">
+        </div>
+        <div>
+            <button type="submit">提交</button>
+        </div> 
+    </form>
+</body>
+</html>
