@@ -9,4 +9,10 @@ import (
 func init() {
 	// 后台首页
 	beego.Router("/admin", &admin.HomeController{})
+	beego.Router("/admin/users", &admin.UsersController{})
+	beego.Router("/admin/users/new", &admin.UsersController{}, "get:NewUser")
+	beego.Router("/admin/users/add", &admin.UsersController{}, "post:AddUser")
+	beego.Router("/admin/users/:id", &admin.UsersController{}, "get:GetInfo")
+	beego.Router("/admin/users/edit", &admin.UsersController{}, "put:EditUser")
+	beego.Router("/admin/users/delete", &admin.UsersController{}, "delete:DeleteUser")
 }

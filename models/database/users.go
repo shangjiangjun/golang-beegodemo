@@ -65,13 +65,26 @@ qs.Filter("id__,5) //where id<5
 //gt 是greater缩写即大于
 //get是 Greater or equal的缩写即大于等于
 //lt 是less than 即小于
+
+字符串 与 int 类型转换
+// string到int
+int, err := strconv.Atoi(string)
+
+// string到int64
+int64, err := strconv.ParseInt(string, 10, 64)
+
+// int到string
+string := strconv.Itoa(int)
+
+// int64到string
+
 */
 type Users struct {
 	Id        int64     `json:"id" orm:"column(id);pk;auto"`
 	Name      string    `json:"name" orm:"column(name);size(15)"`
 	Mobile    string    `json:"mobile" orm:"column(mobile);size(11)"`
 	Avatar    string    `json:"avatar" orm:"column(avatar);size(191);null" description:"用户头像"`
-	Password  string    `json:"password" orm:"column(password);size(191)"`
+	Password  string    `json:"password" orm:"column(password);size(191);default('$2y$10$Z6V1BoMSqFoLp9rwXjwCIutdXn8VV.fkixo8.6HvH6z4/5G91rO.e')"`
 	Sign      bool      `json:"sign" orm:"column(sign);size(1);default(1)"`
 	Status    bool      `json:"status" orm:"column(status);size(1);default(1)"`
 	CreatedAt time.Time `json:"created_at" orm:"column(created_at);auto_now_add;type(datetime)"` //发布时间

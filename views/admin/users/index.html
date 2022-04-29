@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.title}}</title>
+    <style>
+        a {color: #333}
+        a:hover {color: cadetblue}
+        .cancel-btn:hover {color: red}
+        .users li {list-style: none; height: 32px;}
+        .username, .mobile, .edit { display: inline-block;}
+        .username {width: 220px;}
+        .mobile {width: 420px;}
+    </style>
+</head>
+<body>
+<h3>5. 模板遍历结构体切片 <a href="/admin/users/new">新增</a> </h3>
+<ul class="users">
+    <li>
+        <text class="username">用户名 </text>
+        <text class="mobile">电话 </text>
+        <text class="edit">操作 </text>
+    </li>
+    {{range $key, $item := .users}}
+    <li>
+        <text class="username">{{$item.Name}}: </text>
+        <text class="mobile">{{$item.Mobile}} </text>
+        <text class="edit"><a href="/admin/users/{{$item.Id}}">编辑</a> | <a href="javascript:;" class="cancel-btn" data-id="{{$item.Id}}">删除</a> </text>
+    </li>
+    {{end}}
+</ul>
+</body>
+</html>
+<script src="/static/js/jquery-2.2.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".users").on("click", ".cancel-btn", function () {
+            let id = $(this).data("id")
+            if (confirm("确定要删除这条数据？删除后无法恢复！")) {
+                let url = "/admin/users/delete?id=" + id
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    success: function (res) {
+                        if(res.status && res.code == 200) {
+                            alert(res.message + " 按确定之后，1秒会自动刷新页面")
+                            setTimeout(function () {
+                                window.location.reload()
+                            }, 2000)
+                        } else  {
+                            alert(res.message)
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            }
+        })
+    })
+</script>

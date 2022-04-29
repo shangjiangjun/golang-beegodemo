@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.info.Name}} -- 编辑</title>
+</head>
+<body>
+<h3>登录表单</h3>
+<form action="/admin/users/edit" method="post">
+  <input id="id" type="hidden" name="id" value="{{.info.Id}}">
+  <div>
+    <label>用户名</label>
+    <input type="text" name="name" id="name" value="{{.info.Name}}" />
+  </div>
+  <div>
+    <label>手机号</label>
+    <input type="text" name="mobile" id="mobile" maxlength="11" value="{{.info.Mobile}}">
+  </div>
+  <div>
+    <button type="button" class="func-btn">提交</button>
+  </div>
+</form>
+</body>
+</html>
+<script src="/static/js/jquery-2.2.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".func-btn").click(function () {
+      let id = $("#id").val()
+      let name = $("#name").val()
+      let mobile = $("#mobile").val()
+      if (name.length < 1) {
+        $("#name").css("border", "1px solid #f00")
+        return;
+      }
+      if (mobile.length != 11) {
+        $("#mobile").css("border", "1px solid #f00")
+        return;
+      }
+      let url = "/admin/users/add"
+      let type = "post"
+      if (id) {
+        url = "/admin/users/edit"
+        type = "put"
+      }
+      $.ajax({
+        url: url,
+        type: type,
+        success: function (res) {
+          // if(res.status && res.code == 200) {
+          //   alert(res.message + " 按确定之后，1秒会自动刷新页面")
+          //   setTimeout(function () {
+          //     window.location.reload()
+          //   }, 2000)
+          // } else  {
+          //   alert(res.message)
+          // }
+        },
+        error: function (err) {
+          console.log(err)
+        }
+      })
+    })
+
+    $("#name").blur(function () {
+      let name = $(this).val()
+      if (name.length < 1) {
+        $("#name").css("border", "1px solid #f00")
+      } else {
+        $("#name").css("border", "1px solid #999")
+      }
+    })
+    $("#mobile").blur(function () {
+      let mobile = $(this).val()
+      if (mobile.length != 11) {
+        $("#mobile").css("border", "1px solid #f00")
+      } else {
+        $("#mobile").css("border", "1px solid #999")
+      }
+    })
+  })
+</script>
